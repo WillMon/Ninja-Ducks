@@ -6,45 +6,48 @@ using System.Threading.Tasks;
 
 namespace Ninja_Ducks
 {
-    /// <summary>
-    /// Hold my players stats health, damage , and my function to remove the damage from health
-    /// health hold total health
-    /// dmg told the total damage the player will be dealing 
-    /// </summary>
-    interface IStats
+    class Program
     {
-        int health { get; set; }
-        int dmg { get; set; }
-        void takeDamage();
-    }
-  
-    /// <summary>
-    /// Ninja class 
-    /// It inherates all the variables and functions from IStats interface 
-    /// </summary>
-    class Ninja : IStats
-    {
-        public int dmg { get; set; }
-        public int health { get; set; }
-
-        public Ninja(int _dmg)
+        /// <summary>
+        /// Hold my players stats health, damage , and my function to remove the damage from health
+        /// health hold total health
+        /// dmg told the total damage the player will be dealing 
+        /// </summary>
+        interface IStats
         {
-
-            dmg = _dmg;
-            health = 100;
+            int health { get; set; }
+            int dmg { get; set; }
+            void takeDamage();
         }
 
-        public void takeDamage()
+        /// <summary>
+        /// Ninja class 
+        /// It inherates all the variables and functions from IStats interface 
+        /// </summary>
+        class Ninja : IStats
         {
-            health -= dmg;
-            Console.WriteLine("The Ninja took "  + " and now is left with " + health + "left");
-        }
+            public int dmg { get; set; }
+            public int health { get; set; }
 
-    }
-    /// <summary>
-    /// Duck Class 
-    /// Inherates all the variables and functions from Istats Interface 
-    /// </summary>
+            public Ninja(int _dmg)
+            {
+
+                dmg = _dmg;
+                health = 100;
+            }
+
+            public void takeDamage()
+            {
+                
+                
+                Console.WriteLine("The Ninja took " + " and now is left with " + health + "left");
+            }
+
+        }
+        /// <summary>
+        /// Duck Class 
+        /// Inherates all the variables and functions from Istats Interface 
+        /// </summary>
         class Duck : IStats
         {
             public int dmg { get; set; }
@@ -60,19 +63,21 @@ namespace Ninja_Ducks
             public void takeDamage()
             {
                 
+                
                 Console.WriteLine("The Duck took " + dmg + " and now is left with " + health + "left");
             }
 
-       /// <summary>
-       /// Fighter Class 
-       /// Make a FightBigin Function that calls in to arguments(Ninja class and a Duck class)
-       /// Randomly qeues when the ninja and the duck hit each other
-       /// </summary>
+            /// <summary>
+            /// Fighter Class 
+            /// Make a FightBigin Function that calls in to arguments(Ninja class and a Duck class)
+            /// Randomly qeues when the ninja and the duck hit each other
+            /// </summary>
+        }
         class Fight
         {
-            public void  FightBiggin(Ninja _ninja, Duck _duck)
+            public void FightBiggin(Ninja _ninja, Duck _duck)
             {
-                
+
 
                 Random r_num = new Random();
                 while (_ninja.health > 0 && _duck.health > 0)
@@ -81,37 +86,43 @@ namespace Ninja_Ducks
                     if (r == 2)
                     {
                         _ninja.health -= _duck.dmg;
+                        {
+                            Console.WriteLine("Nija was attacked by duck");
+                            Console.WriteLine("Nija Got hit for: " + _duck.dmg + " damage.");
+                        }
+                        if (_ninja.health >= 0)
+                            
+                            Console.WriteLine("Nija has: " + _ninja.health + " health left");
 
-                        Console.WriteLine ("Nija Got hit for: " + _duck.dmg + " damage.");
-                          if(_ninja.health >= 0)
-                                Console.WriteLine("Nija has: " +_ninja.health + " health left");
-                        
                         if (_ninja.health <= 0)
                             Console.WriteLine("Ninja Dead");
                     }
                     else if (r == 1)
                     {
                         _duck.health -= _ninja.dmg;
-
-                        Console.WriteLine("Duck Got hit for: " + _ninja.dmg + " damage.");
+                        {
+                            Console.WriteLine("Duck was attacked by ninja");
+                            Console.WriteLine("Duck Got hit for: " + _ninja.dmg + " damage.");
+                        }
                         if (_duck.health >= 0)
                             Console.WriteLine("Duck has: " + _duck.health + " health left");
-                       if(_duck.health <= 0)
+                        if (_duck.health <= 0)
                             Console.WriteLine("Ducks Dead");
                     }
-                }     
-            }
+                }
 
-      
+
+
+            }
         }
         /// <summary>
         /// Plays it all in the consol for the user
         /// </summary>
-        /// <param name="args"></param>
-            static void Main(string[] args)
+
+        static void Main(string[] args)
         {
             Random m_num = new Random();
-            
+
 
             List<Fight> Set = new List<Fight>();
             Ninja Black = new Ninja(m_num.Next(35, 60));
